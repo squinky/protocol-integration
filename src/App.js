@@ -2,13 +2,23 @@ import React from 'react';
 import './App.css';
 
 class Protocol extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {upvoted: false};
+		this.handleUpvote = this.handleUpvote.bind(this);
+	}
+	handleUpvote() {
+		this.setState(prevState => ({
+			upvoted: !prevState.upvoted
+		}));
+	}
 	render() {
 		return (
 			<div className="Protocol">
 				<p className="Protocol-text">{this.props.text}</p>
 				<div className="Protocol-buttons">
-					<button className="Protocol-upvote">👍</button>
-					<button className="Protocol-veto">❌</button>
+					<button onClick={this.handleUpvote}>{this.state.upvoted ? '👎' : '👍'}</button>
+					<button>❌</button>
 				</div>
 			</div>
 		);
@@ -18,7 +28,7 @@ class Protocol extends React.Component {
 function ProtocolList(props) {
 	const protocols = props.protocols;
 	const listItems = protocols.map((protocol) =>
-		<Protocol key={protocol} text={protocol} />
+		<Protocol key={protocol.text} text={protocol.text} />
 	);
 	return (
 		<div className="ProtocolList">
@@ -28,9 +38,10 @@ function ProtocolList(props) {
 }
 
 const protocols = [
-	"Here is a protocol",
-	"Here is another protocol",
-	"Here is yet another protocol"
+	{text: "Here is a protocol", upvotes: 0},
+	{text: "Here is another protocol", upvotes: 0},
+	{text: "Here is yet another protocol", upvotes: 0},
+	{text: "Here is a potato", upvotes: 0}
 ]
 
 function App() {
