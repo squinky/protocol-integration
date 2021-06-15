@@ -16,12 +16,21 @@
 	color: white;
 }
 
+.ProtocolList {
+	width: 88%;
+}
+
 .Protocol {
 	border: 2px solid;
-	width: calc(88% - 2em);
-	padding: 1em;
+	width: calc(100% - 2em);
 	display: flex;
 	align-items: center;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+
+.Protocol:last-of-type {
+	margin-bottom: 0;
 }
 
 .Protocol-text {
