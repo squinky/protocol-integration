@@ -1,14 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata');
+
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-container {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Inconsolata', monospace;
+	font-size: 1.4em;
+	color: white;
+}
+
+.Protocol {
+	border: 2px solid;
+	width: calc(88% - 2em);
+	padding: 1em;
+	display: flex;
+	align-items: center;
+}
+
+.Protocol-text {
+	text-align: left;
+	margin: 0 1em 0 0;
+	flex-grow: 1;
+}
+
+.Protocol-buttons {
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.Protocol-buttons button {
+	font-family: 'Inconsolata', monospace;
+	font-size: 0.8em;
+	background-color: transparent;
+	border: 0;
+	padding: 0.5em;
 }
