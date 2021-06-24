@@ -2,52 +2,34 @@
 
 .App {
 	text-align: center;
-}
-
-.App-container {
 	background-color: #282c34;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	font-family: 'Inconsolata', monospace;
 	font-size: 1.4em;
 	color: white;
 }
 
-.ProtocolList {
-	width: 88%;
-}
-
-.Protocol {
-	border: 2px solid;
-	width: calc(100% - 2em);
+.App-container {
+	min-height: 100vh;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	padding: 1em;
-	margin-bottom: 1em;
-}
-
-.Protocol:last-of-type {
-	margin-bottom: 0;
-}
-
-.Protocol-text {
-	text-align: left;
-	margin: 0 1em 0 0;
-	flex-grow: 1;
-}
-
-.Protocol-buttons {
 	justify-content: center;
-	flex-shrink: 0;
+	margin: 0 1em;
 }
 
-.Protocol-buttons button {
+.App-container > div {
+	width: 100%;
+	max-width: 100vh;
+}
+
+.App button {
 	font-family: 'Inconsolata', monospace;
-	font-size: 0.8em;
-	background-color: transparent;
-	border: 0;
-	padding: 0.5em;
+	font-size: 1em;
+	width: 100%;
+	padding: 1em;
+	margin-bottom: 0.5em;
+}
+
+.App button:last-of-type {
+	margin-bottom: 0;
 }

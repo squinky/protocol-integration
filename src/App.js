@@ -1,57 +1,68 @@
 import React from 'react';
 import './App.css';
 
-class Protocol extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {upvoted: false};
-		this.handleUpvote = this.handleUpvote.bind(this);
-	}
-	handleUpvote() {
-		this.setState(prevState => ({
-			upvoted: !prevState.upvoted
-		}));
+class Button extends React.Component {
+	handleClick = () => {
+		this.props.onClicked(this.props.text);
 	}
 	render() {
 		return (
-			<div className="Protocol">
-				<p className="Protocol-text">{this.props.text}</p>
-				<div className="Protocol-buttons">
-					<button onClick={this.handleUpvote}>{this.state.upvoted ? '👎' : '👍'}</button>
-					<button>❌</button>
-				</div>
+			<button onClick={this.handleClick}>{this.props.text}</button>
+		);
+	}
+}
+
+class Welcome extends React.Component {
+	handleButtonClicked = (text) => {
+		this.props.onRoleSelected(text);
+	}
+	render() {
+		return (
+			<div className="Welcome">
+				<p>Welcome to Protocol Integration. Please select your role:</p>
+				<Button text="Audience" onClicked={this.handleButtonClicked} />
+				<Button text="Video Caller" onClicked={this.handleButtonClicked} />
+				<Button text="Moderator" onClicked={this.handleButtonClicked} />
 			</div>
 		);
 	}
 }
 
-function ProtocolList(props) {
-	const protocols = props.protocols;
-	const listItems = protocols.map((protocol) =>
-		<Protocol key={protocol.text} text={protocol.text} />
-	);
-	return (
-		<div className="ProtocolList">
-			{listItems}
-		</div>
-	);
-}
-
-const protocols = [
-	{text: "Here is a protocol", upvotes: 0},
-	{text: "Here is another protocol", upvotes: 0},
-	{text: "Here is yet another protocol", upvotes: 0},
-	{text: "Here is a potato", upvotes: 0}
-]
-
-function App() {
-	return (
-		<div className="App">
-			<header className="App-container">
-				<ProtocolList protocols={protocols} />
-			</header>
-		</div>
-	);
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			role: null
+		}
+	}
+	handleRoleSelected = (r) => {
+		this.setState(state => ({
+			role: r
+		}));
+	}
+	render() {
+		let display;
+		switch(this.state.role) {
+			case "Audience":
+				display = ( <div>Audience stuff goes here.</div> );
+				break;
+			case "Video Caller":
+				display = ( <div>Video caller stuff goes here.</div> );
+				break;
+			case "Moderator":
+				display = ( <div>Moderator stuff goes here.</div> );
+				break;
+			default:
+				display = ( <Welcome onRoleSelected={this.handleRoleSelected} /> );
+		}
+		return (
+			<div className="App">
+				<header className="App-container">
+					{display}
+				</header>
+			</div>
+		);
+	}
 }
 
 export default App;
