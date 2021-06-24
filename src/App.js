@@ -1,32 +1,9 @@
 import React from 'react';
 import './App.css';
-
-class Button extends React.Component {
-	handleClick = () => {
-		this.props.onClicked(this.props.text);
-	}
-	render() {
-		return (
-			<button onClick={this.handleClick}>{this.props.text}</button>
-		);
-	}
-}
-
-class Welcome extends React.Component {
-	handleButtonClicked = (text) => {
-		this.props.onRoleSelected(text);
-	}
-	render() {
-		return (
-			<div className="Welcome">
-				<p>Welcome to Protocol Integration. Please select your role:</p>
-				<Button text="Audience" onClicked={this.handleButtonClicked} />
-				<Button text="Video Caller" onClicked={this.handleButtonClicked} />
-				<Button text="Moderator" onClicked={this.handleButtonClicked} />
-			</div>
-		);
-	}
-}
+import Audience from './Audience.js'
+import VideoCaller from './VideoCaller.js'
+import Moderator from './Moderator.js'
+import Welcome from './Welcome.js'
 
 class App extends React.Component {
 	constructor(props) {
@@ -43,14 +20,14 @@ class App extends React.Component {
 	render() {
 		let display;
 		switch(this.state.role) {
-			case "Audience":
-				display = ( <div>Audience stuff goes here.</div> );
+			case "audience":
+				display = ( <Audience /> );
 				break;
-			case "Video Caller":
-				display = ( <div>Video caller stuff goes here.</div> );
+			case "caller":
+				display = ( <VideoCaller /> );
 				break;
-			case "Moderator":
-				display = ( <div>Moderator stuff goes here.</div> );
+			case "moderator":
+				display = ( <Moderator /> );
 				break;
 			default:
 				display = ( <Welcome onRoleSelected={this.handleRoleSelected} /> );
