@@ -22,6 +22,10 @@
 	max-width: 100vh;
 }
 
+.App-container > div > *:last-child {
+	margin-bottom: 0;
+}
+
 .App button {
 	font-family: 'Inconsolata', monospace;
 	font-size: 1em;
@@ -30,6 +34,17 @@
 	margin-bottom: 0.5em;
 }
 
-.App button:last-of-type {
-	margin-bottom: 0;
+.App form {
+	display: flex;
+}
+
+.App form input {
+	font-family: 'Inconsolata', monospace;
+	font-size: 1em;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+
+.App form input[type=text] {
+	flex-grow: 1;
 }

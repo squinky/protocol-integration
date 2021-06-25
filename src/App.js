@@ -17,6 +17,11 @@ class App extends React.Component {
 			role: r
 		}));
 	}
+	handleBackButton = () => {
+		this.setState(state => ({
+			role: null
+		}));
+	}
 	render() {
 		let display;
 		switch(this.state.role) {
@@ -27,7 +32,7 @@ class App extends React.Component {
 				display = ( <VideoCaller /> );
 				break;
 			case "moderator":
-				display = ( <Moderator /> );
+				display = ( <Moderator onBackButton={this.handleBackButton} /> );
 				break;
 			default:
 				display = ( <Welcome onRoleSelected={this.handleRoleSelected} /> );
