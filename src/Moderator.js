@@ -20,7 +20,13 @@ class Moderator extends React.Component {
 			this.setState({passwordCorrect: true});
 			if (!this.props.performance) {
 				firebase.database().ref('performance').set(
-					"performance data will go here"
+					{
+						choices: {
+							testchoice1: { text: "Test Choice 1", goto: "next1", votes: 0 },
+							testchoice2: { text: "Test Choice 2", goto: "next2", votes: 0 },
+							testchoice3: { text: "Test Choice 3", goto: "next3", votes: 0 }
+						}
+					}
 				);
 			}
 		}

@@ -9,7 +9,7 @@ class Welcome extends React.Component {
 		if (!this.props.performance) {
 			return (
 				<div>
-					<p>Welcome to Protocol Integration. There are no performances currently in progress.</p>
+					<p>Welcome to Protocol Integration.</p>
 					<Button text="Start Performance" id="moderator" onClicked={this.handleButton} />
 				</div>
 			);

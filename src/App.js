@@ -37,7 +37,7 @@ class App extends React.Component {
 		let display;
 		switch(this.state.role) {
 			case "audience":
-				display = ( <Audience /> );
+				display = ( <Audience performance={this.state.performance} /> );
 				break;
 			case "caller":
 				display = ( <VideoCaller /> );
