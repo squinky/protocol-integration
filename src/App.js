@@ -11,7 +11,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			role: null,
-			pw: null
+			performance: null
 		}
 	}
 	handleRoleSelected = (r) => {
@@ -25,11 +25,11 @@ class App extends React.Component {
 		}));
 	}
 	componentDidMount() {
-		const pwRef = firebase.database().ref('password');
-    pwRef.on('value', (snapshot) => {
+		const performanceRef = firebase.database().ref('performance');
+    performanceRef.on('value', (snapshot) => {
       const newState = snapshot.val();
       this.setState(state => ({
-				pw: newState
+				performance: newState
 			}));
     });
 	}
@@ -43,10 +43,10 @@ class App extends React.Component {
 				display = ( <VideoCaller /> );
 				break;
 			case "moderator":
-				display = ( <Moderator pw={this.state.pw} onBackButton={this.handleBackButton} /> );
+				display = ( <Moderator performance={this.state.performance} onBackButton={this.handleBackButton} /> );
 				break;
 			default:
-				display = ( <Welcome onRoleSelected={this.handleRoleSelected} /> );
+				display = ( <Welcome performance={this.state.performance} onRoleSelected={this.handleRoleSelected} /> );
 		}
 		return (
 			<div className="App">

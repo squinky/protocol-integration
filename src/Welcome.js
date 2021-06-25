@@ -6,14 +6,23 @@ class Welcome extends React.Component {
 		this.props.onRoleSelected(id);
 	}
 	render() {
-		return (
-			<div>
-				<p>Welcome to Protocol Integration. Please select your role:</p>
-				<Button text="Audience" id="audience" onClicked={this.handleButton} />
-				<Button text="Video Caller" id="caller" onClicked={this.handleButton} />
-				<Button text="Moderator" id="moderator" onClicked={this.handleButton} />
-			</div>
-		);
+		if (!this.props.performance) {
+			return (
+				<div>
+					<p>Welcome to Protocol Integration. There are no performances currently in progress.</p>
+					<Button text="Start Performance" id="moderator" onClicked={this.handleButton} />
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<p>Welcome to Protocol Integration. Please select your role:</p>
+					<Button text="Audience" id="audience" onClicked={this.handleButton} />
+					<Button text="Video Caller" id="caller" onClicked={this.handleButton} />
+					<Button text="Moderator" id="moderator" onClicked={this.handleButton} />
+				</div>
+			);
+		}
 	}
 }
 
