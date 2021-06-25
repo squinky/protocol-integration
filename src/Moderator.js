@@ -1,8 +1,6 @@
 import React from 'react';
 import {Button, TextBox} from './Common.js'
 
-const password = "test"
-
 class Moderator extends React.Component {
 	constructor(props) {
     super(props);
@@ -12,7 +10,7 @@ class Moderator extends React.Component {
     };
   }
 	handlePassword = (value) => {
-		if (value === password) {
+		if (value === this.props.pw) {
 			this.setState({passwordCorrect: true});
 		}
 		this.setState({attemptedPassword: true});
