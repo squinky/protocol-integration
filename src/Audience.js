@@ -22,6 +22,13 @@ class Audience extends React.Component {
 		}));
 	}
 	render() {
+		if (!this.props.performance) {
+			return (
+				<div>
+					<p>That's the end of the show! Thanks for playing!</p>
+				</div>
+			);
+		}
 		const choices = this.props.performance.choices;
 		if (!choices) {
 			return (
