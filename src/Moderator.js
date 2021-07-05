@@ -1,6 +1,7 @@
 import React from 'react';
-import firebase from './firebase.js'
-import {Button, TextBox} from './Common.js'
+import firebase from './firebase.js';
+import script from './Script.js';
+import {Button, TextBox} from './Common.js';
 
 class Moderator extends React.Component {
 	constructor(props) {
@@ -18,17 +19,7 @@ class Moderator extends React.Component {
 	handlePassword = (value) => {
 		if (value === this.state.password) {
 			this.setState({passwordCorrect: true});
-			if (!this.props.performance) {
-				firebase.database().ref('performance').set(
-					{
-						choices: {
-							testchoice1: { text: "Test Choice 1", goto: "next1", votes: 0 },
-							testchoice2: { text: "Test Choice 2", goto: "next2", votes: 0 },
-							testchoice3: { text: "Test Choice 3", goto: "next3", votes: 0 }
-						}
-					}
-				);
-			}
+			script.initPerformance(this.props.performance);
 		}
 		this.setState({attemptedPassword: true});
 	}

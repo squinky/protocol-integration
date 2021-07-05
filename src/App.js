@@ -1,10 +1,10 @@
 import React from 'react';
+import firebase from './firebase.js';
 import './App.css';
-import firebase from './firebase.js'
-import Audience from './Audience.js'
-import VideoCaller from './VideoCaller.js'
-import Moderator from './Moderator.js'
-import Welcome from './Welcome.js'
+import Audience from './Audience.js';
+import VideoCaller from './VideoCaller.js';
+import Moderator from './Moderator.js';
+import Welcome from './Welcome.js';
 
 class App extends React.Component {
 	constructor(props) {
