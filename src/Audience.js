@@ -22,18 +22,11 @@ class Audience extends React.Component {
 		}));
 	}
 	render() {
-		if (!this.props.performance) {
-			return (
-				<div>
-					<p>That's the end of the show! Thanks for playing!</p>
-				</div>
-			);
-		}
 		const choices = this.props.performance.choices;
 		if (!choices) {
 			return (
 				<div>
-					<p>At certain points during the performance, you will be prompted to vote on what happens next. Until then, please sit back and enjoy the show.</p>
+					<p>You don't have to do anything right now - just sit back and enjoy the show!</p>
 				</div>
 			);
 		} else {

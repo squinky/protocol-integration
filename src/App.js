@@ -31,6 +31,9 @@ class App extends React.Component {
       this.setState(state => ({
 				performance: newState
 			}));
+			if (!newState) {
+				this.handleBackButton();
+			}
     });
 	}
 	render() {

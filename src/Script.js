@@ -4,12 +4,10 @@ const Story = require('inkjs').Story;
 const json = require('./script.ink.json');
 
 class Script {
-	constructor() {
-		this.story = new Story(json);
-		this.activeSpeaker = null;
-	}
 	initPerformance(props) {
+		this.story = new Story(json);
 		if (!props) {
+			this.activeSpeaker = null;
 			this.continue();
 		} else {
 			this.story.state.LoadJson(props.saveState);
