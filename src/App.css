@@ -2,10 +2,10 @@
 
 .App {
 	text-align: center;
-	background-color: #282c34;
+	background-color: black;
 	font-family: 'Inconsolata', monospace;
 	font-size: 1.4em;
-	color: white;
+	color: #ffda00;
 }
 
 .App-container {
@@ -34,6 +34,47 @@
 	margin-bottom: 0.5em;
 }
 
+.App button,
+.App form input[type=submit] {
+	background-color: transparent;
+	border: 1px solid;
+	color: #ffda00;
+}
+
+.App button:active,
+.App button:hover,
+.App button:disabled,
+.App form input[type=submit]:active,
+.App form input[type=submit]:hover {
+	border: 1px solid #ffda00;
+	background-color: #ffda00;
+	color: black;
+}
+
+.App button.a {
+	color: #ff1b8d;
+}
+
+.App button.a:active,
+.App button.a:hover,
+.App button.a:disabled {
+	border: 1px solid #ff1b8d;
+	background-color: #ff1b8d;
+	color: black;
+}
+
+.App button.b {
+	color: #1bb3ff;
+}
+
+.App button.b:active,
+.App button.b:hover,
+.App button.b:disabled {
+	border: 1px solid #1bb3ff;
+	background-color: #1bb3ff;
+	color: black;
+}
+
 .App form {
 	display: flex;
 }
@@ -46,5 +87,10 @@
 }
 
 .App form input[type=text] {
+	width: 100%;
 	flex-grow: 1;
+	border: 1px solid #ffda00;
+	background-color: #ffda00;
+	color: black;
 }
+

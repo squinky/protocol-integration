@@ -34,6 +34,7 @@ class Audience extends React.Component {
 				<Button
 					key={i}
 					text={choices[i].text+" ("+choices[i].votes+" votes)"}
+					speaker={this.props.performance.currentSpeaker}
 					id={i}
 					onClicked={this.handleChoice}
 					selected={this.state.selected === i} />
