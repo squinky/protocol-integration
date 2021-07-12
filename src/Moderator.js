@@ -9,12 +9,30 @@ class Moderator extends React.Component {
     this.state = {
     	password: null,
     	passwordCorrect: false,
-    	attemptedPassword: false
+    	attemptedPassword: false,
+    	areYouSure: false
     };
   }
+	handleContinueButton = (id) => {
+		script.continue();
+  }
+	handlePickButton = (id) => {
+		let pickMe = 0;
+		const choices = Object.values(this.props.performance.choices);
+		choices.forEach((item, index) => {
+			if (item.votes > this.props.performance.choices[pickMe].votes) {
+				pickMe = index;
+			}
+		});
+		script.pickChoice(pickMe);
+  }
 	handleEndButton = (id) => {
-		firebase.database().ref('performance').set(null);
-		this.props.onBackButton();
+		if (this.state.areYouSure) {
+			firebase.database().ref('performance').set(null);
+			this.props.onBackButton();
+		} else {
+			this.setState({areYouSure: true});
+		}
 	}
 	handlePassword = (value) => {
 		if (value === this.state.password) {
@@ -24,7 +42,11 @@ class Moderator extends React.Component {
 		this.setState({attemptedPassword: true});
 	}
 	handleBackButton = (id) => {
-		this.props.onBackButton();
+		if (this.state.areYouSure) {
+			this.setState({areYouSure: false});
+		} else {
+			this.props.onBackButton();
+		}
 	}
 	componentDidMount() {
 		const pwRef = firebase.database().ref('password');
@@ -36,10 +58,49 @@ class Moderator extends React.Component {
     });
 	}
 	render() {
-		if (this.state.passwordCorrect) {
+		if (this.state.areYouSure) {
 			return (
 				<div>
-					<p>Moderator stuff goes here.</p>
+					<p>This will end the entire performance! Are you sure you want to do that?</p>
+					<Button text="Yes, the show's over!" id="end" onClicked={this.handleEndButton} />
+					<Button text="Whoops! Go back!" id="back" onClicked={this.handleBackButton} />
+				</div>
+			);
+		} else if (this.state.passwordCorrect) {
+			let display;
+			if (script.canContinue()) {
+				display = (
+					<div className={this.props.performance.currentSpeaker}>
+						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
+						<p>{this.props.performance.currentLine}</p>
+						<Button
+							speaker={this.props.performance.currentSpeaker}
+							text="Continue"
+							id="continue"
+							onClicked={this.handleContinueButton} />
+					</div>
+				);
+			} else if (this.props.performance.choices) {
+				const choices = this.props.performance.choices;
+				const choiceList = Object.keys(choices).map((i) =>
+					<li key={i}>{choices[i].text+" ("+choices[i].votes+" votes)"}</li>
+				);
+				display = (
+					<div className={this.props.performance.currentSpeaker}>
+						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
+						<ol>{choiceList}</ol>
+						<Button
+							speaker={this.props.performance.currentSpeaker}
+							text="Pick Choice"
+							id="pick"
+							onClicked={this.handlePickButton} />
+					</div>
+				);
+			}
+			return (
+				<div>
+					{display}
+					<p>Once the show's over, click this button:</p>
 					<Button text="End Performance" id="end" onClicked={this.handleEndButton} />
 				</div>
 			);

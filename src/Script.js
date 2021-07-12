@@ -36,6 +36,13 @@ class Script {
 			saveState: state
 		});
 	}
+	canContinue() {
+		return this.story.canContinue;
+	}
+	pickChoice(choice) {
+		this.story.ChooseChoiceIndex(choice);
+		this.continue();
+	}
 	toggleActiveSpeaker() {
 		if (this.activeSpeaker === "a") {
 			this.activeSpeaker = "b";

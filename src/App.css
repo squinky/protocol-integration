@@ -51,6 +51,7 @@
 	color: black;
 }
 
+.App .a,
 .App button.a {
 	color: #ff1b8d;
 }
@@ -63,6 +64,7 @@
 	color: black;
 }
 
+.App .b,
 .App button.b {
 	color: #1bb3ff;
 }
@@ -94,3 +96,6 @@
 	color: black;
 }
 
+.App ol {
+	text-align: left;
+}
