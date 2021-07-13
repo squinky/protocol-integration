@@ -5,17 +5,17 @@ import {Button, TextBox} from './Common.js';
 
 class Moderator extends React.Component {
 	constructor(props) {
-    super(props);
-    this.state = {
-    	password: null,
-    	passwordCorrect: false,
-    	attemptedPassword: false,
-    	areYouSure: false
-    };
-  }
+		super(props);
+		this.state = {
+			password: null,
+			passwordCorrect: false,
+			attemptedPassword: false,
+			areYouSure: false
+		};
+	}
 	handleContinueButton = (id) => {
 		script.continue();
-  }
+	}
 	handlePickButton = (id) => {
 		let pickMe = 0;
 		const choices = Object.values(this.props.performance.choices);
@@ -25,7 +25,7 @@ class Moderator extends React.Component {
 			}
 		});
 		script.pickChoice(pickMe);
-  }
+	}
 	handleEndButton = (id) => {
 		if (this.state.areYouSure) {
 			firebase.database().ref('performance').set(null);
@@ -50,12 +50,15 @@ class Moderator extends React.Component {
 	}
 	componentDidMount() {
 		const pwRef = firebase.database().ref('password');
-    pwRef.on('value', (snapshot) => {
-      const newState = snapshot.val();
-      this.setState(state => ({
+		pwRef.on('value', (snapshot) => {
+			const newState = snapshot.val();
+			this.setState(state => ({
 				password: newState
 			}));
-    });
+		});
+	}
+	componentWillUnmount() {
+		this.setState = (state, callback) => {return;};
 	}
 	render() {
 		if (this.state.areYouSure) {

@@ -18,8 +18,8 @@ class Welcome extends React.Component {
 				<div>
 					<p>Welcome to Protocol Integration. Please select your role:</p>
 					<Button text="Audience" id="audience" onClicked={this.handleButton} />
-					<Button text="Video Caller A" id="caller" speaker="a" onClicked={this.handleButton} />
-					<Button text="Video Caller B" id="caller" speaker="b" onClicked={this.handleButton} />
+					<Button text="Video Caller A" id="callera" speaker="a" onClicked={this.handleButton} />
+					<Button text="Video Caller B" id="callerb" speaker="b" onClicked={this.handleButton} />
 					<Button text="Moderator" id="moderator" onClicked={this.handleButton} />
 				</div>
 			);

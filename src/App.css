@@ -58,7 +58,8 @@
 
 .App button.a:active,
 .App button.a:hover,
-.App button.a:disabled {
+.App button.a:disabled,
+.App .bubble.a {
 	border: 1px solid #ff1b8d;
 	background-color: #ff1b8d;
 	color: black;
@@ -71,7 +72,8 @@
 
 .App button.b:active,
 .App button.b:hover,
-.App button.b:disabled {
+.App button.b:disabled,
+.App .bubble.b {
 	border: 1px solid #1bb3ff;
 	background-color: #1bb3ff;
 	color: black;
@@ -98,4 +100,9 @@
 
 .App ol {
 	text-align: left;
+}
+
+.App .bubble p {
+	margin: 2em;
+	font-size: 1.5em;
 }

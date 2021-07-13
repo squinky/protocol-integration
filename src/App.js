@@ -36,14 +36,20 @@ class App extends React.Component {
 			}
     });
 	}
+	componentWillUnmount() {
+		this.setState = (state, callback) => {return;};
+	}
 	render() {
 		let display;
 		switch(this.state.role) {
 			case "audience":
 				display = ( <Audience performance={this.state.performance} /> );
 				break;
-			case "caller":
-				display = ( <VideoCaller /> );
+			case "callera":
+				display = ( <VideoCaller performance={this.state.performance} speaker='a' /> );
+				break;
+			case "callerb":
+				display = ( <VideoCaller performance={this.state.performance} speaker='b' /> );
 				break;
 			case "moderator":
 				display = ( <Moderator performance={this.state.performance} onBackButton={this.handleBackButton} /> );
