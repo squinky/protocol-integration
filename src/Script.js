@@ -14,18 +14,26 @@ class Script {
 			this.activeSpeaker = props.currentSpeaker;
 		}
 	}
-	continue() {
-		const line = this.story.Continue();
-		if (this.story.currentTags.indexOf("Toggle") !== -1) {
-			this.toggleActiveSpeaker();
-		}
+	continue(canToggle = true) {
+		let line = "";
 		let choices = null;
-		let numChoices = this.story.currentChoices.length;
-		if (numChoices > 0) {
-			choices = {};
-			for (let i = 0; i < numChoices; i++) {
-				choices[i] = { text: null, votes: 0 };
-				choices[i].text = this.story.currentChoices[i].text;
+		if (this.story.canContinue) {
+			line = this.story.Continue();
+		}
+		if (canToggle) {
+			if (this.story.currentTags.indexOf("Toggle") !== -1) {
+				this.toggleActiveSpeaker();
+			}
+		}
+		if (line === "") {
+			let numChoices = this.story.currentChoices.length;
+			if (numChoices > 0) {
+				choices = {};
+				for (let i = 0; i < numChoices; i++) {
+					choices[i] = { text: null, votes: 0 };
+					let newText = this.story.currentChoices[i].text.replace('/', '');
+					choices[i].text = newText;
+				}
 			}
 		}
 		const state = this.story.state.toJson();
@@ -36,12 +44,9 @@ class Script {
 			saveState: state
 		});
 	}
-	canContinue() {
-		return this.story.canContinue;
-	}
 	pickChoice(choice) {
 		this.story.ChooseChoiceIndex(choice);
-		this.continue();
+		this.continue(false);
 	}
 	toggleActiveSpeaker() {
 		if (this.activeSpeaker === "a") {

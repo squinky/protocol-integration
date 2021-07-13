@@ -68,7 +68,7 @@ class Moderator extends React.Component {
 			);
 		} else if (this.state.passwordCorrect) {
 			let display;
-			if (script.canContinue()) {
+			if (this.props.performance.currentLine !== "") {
 				display = (
 					<div className={this.props.performance.currentSpeaker}>
 						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>

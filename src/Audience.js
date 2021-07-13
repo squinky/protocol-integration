@@ -21,7 +21,24 @@ class Audience extends React.Component {
 			selected: id
 		}));
 	}
+	componentDidUpdate() {
+		if (!this.props.performance) return;
+		let resetChoices = true;
+		const choices = this.props.performance.choices;
+		if (choices) {
+			const choiceValues = Object.values(choices);
+			choiceValues.forEach((item) => {
+				if (item.votes) resetChoices = false;
+			});
+		}
+		if (resetChoices && this.state.selected) {
+			this.setState(state => ({
+				selected: null
+			}));
+		}
+	}
 	render() {
+		if (!this.props.performance) return null;
 		const choices = this.props.performance.choices;
 		if (!choices) {
 			return (
