@@ -11,7 +11,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			role: null,
-			performance: null
+			performance: "loading"
 		}
 	}
 	handleRoleSelected = (r) => {

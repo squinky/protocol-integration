@@ -13,6 +13,12 @@ class Welcome extends React.Component {
 					<Button text="Start Performance" id="moderator" onClicked={this.handleButton} />
 				</div>
 			);
+		} else if (this.props.performance === "loading") {
+			return (
+				<div>
+					<p>Loading...</p>
+				</div>
+			);
 		} else {
 			return (
 				<div>
