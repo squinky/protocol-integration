@@ -72,17 +72,30 @@ class Moderator extends React.Component {
 		} else if (this.state.passwordCorrect) {
 			let display;
 			if (this.props.performance.currentLine !== "") {
-				display = (
-					<div className={this.props.performance.currentSpeaker}>
-						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
-						<p>{this.props.performance.currentLine}</p>
-						<Button
-							speaker={this.props.performance.currentSpeaker}
-							text="Continue"
-							id="continue"
-							onClicked={this.handleContinueButton} />
-					</div>
-				);
+				if (this.props.performance.currentLine.includes('@')) {
+					display = (
+						<div>
+							<p>Audience:</p>
+							<p>{this.props.performance.currentLine}</p>
+							<Button
+								text="Continue"
+								id="continue"
+								onClicked={this.handleContinueButton} />
+						</div>
+					);
+				} else {
+					display = (
+						<div className={this.props.performance.currentSpeaker}>
+							<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
+							<p>{this.props.performance.currentLine}</p>
+							<Button
+								speaker={this.props.performance.currentSpeaker}
+								text="Continue"
+								id="continue"
+								onClicked={this.handleContinueButton} />
+						</div>
+					);
+				}
 			} else if (this.props.performance.choices) {
 				const choices = this.props.performance.choices;
 				const choiceList = Object.keys(choices).map((i) =>

@@ -41,11 +41,20 @@ class Audience extends React.Component {
 		if (!this.props.performance) return null;
 		const choices = this.props.performance.choices;
 		if (!choices) {
-			return (
-				<div>
-					<p>You don't have to do anything right now - just sit back and enjoy the show!</p>
-				</div>
-			);
+			if (this.props.performance.currentLine.includes('@')) {
+				let newText = this.props.performance.currentLine.replace('@', '');
+				return (
+					<div className="bubble">
+						<p>{newText.trim()}</p>
+					</div>
+				);
+			} else {
+				return (
+					<div>
+						<p>You don't have to do anything right now - just sit back and enjoy the show!</p>
+					</div>
+				);
+			}
 		} else {
 			const choiceList = Object.keys(choices).map((i) =>
 				<Button
