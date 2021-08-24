@@ -34,6 +34,10 @@ class Moderator extends React.Component {
 			this.setState({areYouSure: true});
 		}
 	}
+	handleRestartButton = (id) => {
+		firebase.database().ref('performance').set("restarting");
+		script.initPerformance();
+	}
 	handlePassword = (value) => {
 		if (value === this.state.password) {
 			this.setState({passwordCorrect: true});
@@ -116,6 +120,7 @@ class Moderator extends React.Component {
 			return (
 				<div>
 					{display}
+					<Button text="Start Over" id="end" onClicked={this.handleRestartButton} />
 					<p>Once the show's over, click this button:</p>
 					<Button text="End Performance" id="end" onClicked={this.handleEndButton} />
 				</div>

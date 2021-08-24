@@ -33,6 +33,10 @@ class App extends React.Component {
 			}));
 			if (!newState) {
 				this.handleBackButton();
+			} else if (newState === "restarting") {
+				if (this.state.role !== "moderator") {
+					this.handleBackButton();
+				} 
 			}
     });
 	}
