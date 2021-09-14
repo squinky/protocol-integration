@@ -36,7 +36,7 @@ class App extends React.Component {
 			} else if (newState === "restarting") {
 				if (this.state.role !== "moderator") {
 					this.handleBackButton();
-				} 
+				}
 			}
     });
 	}
@@ -46,8 +46,11 @@ class App extends React.Component {
 	render() {
 		let display;
 		switch(this.state.role) {
-			case "audience":
-				display = ( <Audience performance={this.state.performance} /> );
+			case "audiencea":
+				display = ( <Audience performance={this.state.performance} speaker='a' /> );
+				break;
+			case "audienceb":
+				display = ( <Audience performance={this.state.performance} speaker='b' /> );
 				break;
 			case "callera":
 				display = ( <VideoCaller performance={this.state.performance} speaker='a' /> );

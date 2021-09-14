@@ -8,9 +8,9 @@ class VideoCaller extends React.Component {
 			let display;
 			if (p.currentLine.includes('/')) {
 				let newText = p.currentLine.replace('/', '');
-				display = ( <p>{newText.trim()}</p> );
+				display = ( <p>{newText}</p> );
 			} else {
-				display = ( <p>{"Say: "+p.currentLine.trim()}</p> );
+				display = ( <p>{"Say: "+p.currentLine}</p> );
 			}
 			return (
 				<div className={"bubble "+this.props.speaker}>

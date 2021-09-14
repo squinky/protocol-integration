@@ -39,9 +39,33 @@ class Audience extends React.Component {
 	}
 	render() {
 		if (!this.props.performance) return null;
-		const choices = this.props.performance.choices;
-		if (!choices) {
-			if (this.props.performance.currentLine.includes('@')) {
+		let choices = [];
+		const allChoices = this.props.performance.choices;
+		if (allChoices) {
+			for (let i = 0; i < allChoices.length; i++) {
+				if (allChoices[i].speaker === this.props.speaker) {
+					choices.push(allChoices[i]);
+				}
+			}
+		}
+		if (choices.length > 0) {
+			const choiceList = Object.keys(choices).map((i) =>
+				<Button
+					key={i}
+					text={choices[i].text+" ("+choices[i].votes+" votes)"}
+					speaker={choices[i].speaker}
+					id={i}
+					onClicked={this.handleChoice}
+					selected={this.state.selected === i} />
+			);
+			return (
+				<div>
+					<p>Please vote for one of the following:</p>
+					{choiceList}
+				</div>
+			);
+		} else {
+			if (this.props.performance.currentLine && this.props.performance.currentLine.includes('@')) {
 				let newText = this.props.performance.currentLine.replace('@', '');
 				return (
 					<div className="bubble">
@@ -55,22 +79,6 @@ class Audience extends React.Component {
 					</div>
 				);
 			}
-		} else {
-			const choiceList = Object.keys(choices).map((i) =>
-				<Button
-					key={i}
-					text={choices[i].text+" ("+choices[i].votes+" votes)"}
-					speaker={this.props.performance.currentSpeaker}
-					id={i}
-					onClicked={this.handleChoice}
-					selected={this.state.selected === i} />
-			);
-			return (
-				<div>
-					<p>Please vote for one of the following:</p>
-					{choiceList}
-				</div>
-			);
 		}
 	}
 }

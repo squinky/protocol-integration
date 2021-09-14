@@ -22,10 +22,11 @@ class Welcome extends React.Component {
 		} else {
 			return (
 				<div>
-					<p>Welcome to Protocol Integration. Please select your role:</p>
-					<Button text="Audience" id="audience" onClicked={this.handleButton} />
+					<p>Welcome to Video Call Calamity. Please select your role:</p>
 					<Button text="Video Caller A" id="callera" speaker="a" onClicked={this.handleButton} />
 					<Button text="Video Caller B" id="callerb" speaker="b" onClicked={this.handleButton} />
+					<Button text="Audience A" id="audiencea" speaker="a" onClicked={this.handleButton} />
+					<Button text="Audience B" id="audienceb" speaker="b" onClicked={this.handleButton} />
 					<Button text="Moderator" id="moderator" onClicked={this.handleButton} />
 				</div>
 			);

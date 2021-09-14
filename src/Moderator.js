@@ -14,7 +14,7 @@ class Moderator extends React.Component {
 		};
 	}
 	handleContinueButton = (id) => {
-		script.continue();
+		script.continue(this.props.performance);
 	}
 	handlePickButton = (id) => {
 		let pickMe = 0;
@@ -74,52 +74,38 @@ class Moderator extends React.Component {
 				</div>
 			);
 		} else if (this.state.passwordCorrect) {
-			let display;
+			let currentLine, currentChoices, continueButton;
 			if (this.props.performance.currentLine !== "") {
-				if (this.props.performance.currentLine.includes('@')) {
-					display = (
-						<div>
-							<p>Audience:</p>
-							<p>{this.props.performance.currentLine}</p>
-							<Button
-								text="Continue"
-								id="continue"
-								onClicked={this.handleContinueButton} />
-						</div>
-					);
-				} else {
-					display = (
-						<div className={this.props.performance.currentSpeaker}>
-							<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
-							<p>{this.props.performance.currentLine}</p>
-							<Button
-								speaker={this.props.performance.currentSpeaker}
-								text="Continue"
-								id="continue"
-								onClicked={this.handleContinueButton} />
-						</div>
-					);
-				}
-			} else if (this.props.performance.choices) {
-				const choices = this.props.performance.choices;
-				const choiceList = Object.keys(choices).map((i) =>
-					<li key={i}>{choices[i].text+" ("+choices[i].votes+" votes)"}</li>
-				);
-				display = (
+				currentLine = (
 					<div className={this.props.performance.currentSpeaker}>
 						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
-						<ol>{choiceList}</ol>
-						<Button
-							speaker={this.props.performance.currentSpeaker}
-							text="Pick Choice"
-							id="pick"
-							onClicked={this.handlePickButton} />
+						<p>{this.props.performance.currentLine}</p>
+
 					</div>
 				);
+				continueButton = (
+					<Button text="Continue" id="continue" onClicked={this.handleContinueButton} />
+				);
+			}
+			if (this.props.performance.choices) {
+				const choices = this.props.performance.choices;
+				const choiceList = Object.keys(choices).map((i) =>
+					<li key={i} className={choices[i].speaker}>{choices[i].text+" ("+choices[i].votes+" votes)"}</li>
+				);
+				currentChoices = (
+					<ol>{choiceList}</ol>
+				);
+				if (!continueButton) {
+					continueButton = (
+						<Button text="Pick Choice" id="pick" onClicked={this.handlePickButton} />
+					);
+				}
 			}
 			return (
 				<div>
-					{display}
+					{currentLine}
+					{currentChoices}
+					{continueButton}
 					<Button text="Start Over" id="end" onClicked={this.handleRestartButton} />
 					<p>Once the show's over, click this button:</p>
 					<Button text="End Performance" id="end" onClicked={this.handleEndButton} />
