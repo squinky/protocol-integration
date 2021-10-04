@@ -76,13 +76,14 @@ class Moderator extends React.Component {
 		} else if (this.state.passwordCorrect) {
 			let currentLine, currentChoices, continueButton;
 			if (this.props.performance.currentLine !== "") {
-				currentLine = (
-					<div className={this.props.performance.currentSpeaker}>
-						<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
-						<p>{this.props.performance.currentLine}</p>
-
-					</div>
-				);
+				if (this.props.performance.currentSpeaker) {
+					currentLine = (
+						<div className={this.props.performance.currentSpeaker}>
+							<p>Video Caller {this.props.performance.currentSpeaker.toUpperCase()}:</p>
+							<p>{this.props.performance.currentLine}</p>
+						</div>
+					);
+				}
 				continueButton = (
 					<Button text="Continue" id="continue" onClicked={this.handleContinueButton} />
 				);
