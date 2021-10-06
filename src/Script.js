@@ -14,9 +14,11 @@ class Script {
 	}
 	continue(props = null) {
 		let nextLines = [];
+		let audience = null;
 		let choices = null;
 		if (props) {
 			if (props.nextLines) nextLines = props.nextLines;
+			if (props.audience) audience = props.audience;
 			if (props.choices) choices = props.choices;
 		} else {
 			nextLines = [];
@@ -35,14 +37,20 @@ class Script {
 			}
 		}
 		let line = "";
-		if (nextLines.length > 0) {
+		while (nextLines.length > 0) {
 			line = nextLines.shift();
+			if (line.includes('@')) {
+				audience = this.getLineText(line);
+			} else {
+				break;
+			}
 		}
 		const state = this.story.state.toJson();
 		firebase.database().ref('performance').set({
 			currentLine: this.getLineText(line),
 			currentSpeaker: this.getSpeaker(line),
 			nextLines: nextLines,
+			audience: audience,
 			choices: choices,
 			saveState: state
 		});
@@ -58,6 +66,10 @@ class Script {
 	}
 	pickChoice(choice) {
 		this.story.ChooseChoiceIndex(choice);
+		this.continue();
+	}
+	startOver() {
+		this.story.ChoosePathString("Start");
 		this.continue();
 	}
 }

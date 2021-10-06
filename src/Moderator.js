@@ -36,7 +36,7 @@ class Moderator extends React.Component {
 	}
 	handleRestartButton = (id) => {
 		firebase.database().ref('performance').set("restarting");
-		script.initPerformance();
+		script.startOver();
 	}
 	handlePassword = (value) => {
 		if (value === this.state.password) {

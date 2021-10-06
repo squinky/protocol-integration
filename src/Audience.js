@@ -65,8 +65,8 @@ class Audience extends React.Component {
 				</div>
 			);
 		} else {
-			if (this.props.performance.currentLine && this.props.performance.currentLine.includes('@')) {
-				let newText = this.props.performance.currentLine.replace('@', '');
+			if (this.props.performance.audience) {
+				let newText = this.props.performance.audience.replace('@', '');
 				return (
 					<div className="bubble">
 						<p>{newText.trim()}</p>

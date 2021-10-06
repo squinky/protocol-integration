@@ -10,7 +10,7 @@ VAR tagset = "does that make sense?"
 
 ===Start
 +[A: Confirm that you can see and hear one another] ->Confirmation
-+A: I'm {|still} not done getting ready.
++A: I'm not done getting ready.
 		->Fixappearance
 
 ===Confirmation
@@ -32,11 +32,9 @@ A: Am I right?
 
 ===Greetings
 =Options
-B: All seems to be working fine
+B: All seems to be working fine on my end!
 
-B: Perhaps a little slow. But...
-
-B: {I can hear and see you, and also I hear you on that head office thing.|I actually was a theatre kid, but I wasn't a lighting person. Lighting wrangler? Lampy clamper?|I would never stream a videogame. Who wants to see me fail over and over again at something? Sounds humiliating.|They may limit our bandwidth, but they will never limit our imaginations!|I certainly don't think my machine could handle VR right now.|But we must be grateful for the miracle of technology that connects us and binds us, like spider silk encompassing the whole world.}
+B: Perhaps a little slow. But I can definitely see and hear you.
 
 *[A: Hide] ->Coverface
 +A: How are you?
@@ -47,17 +45,23 @@ B: {I can hear and see you, and also I hear you on that head office thing.|I act
     ->Reciprocation
 
 =Reciprocation
-B: Um...
-
-B: Well...
-
-B: You know...
+B: {~Um|Well|Uhh}...
 
 +B: /Repeat what they just said
-    ->Reciprocation
+    ->Reciprocation2
 +B: I'm fine thank you, how are you?
+    {->Reciprocation2 | ->StartConclusion}
++B: /Say nothing more, hum agreeably
+    ->StartConclusion
+
+=Reciprocation2
+A: {~Um|Well|Uhh}...
+
++A: /Repeat what they just said
+    ->Reciprocation
++A: I'm fine thank you, how are you?
     {->Reciprocation | ->StartConclusion}
-*B: /Say nothing more, hum agreeably
++A: /Say nothing more, hum agreeably
     ->StartConclusion
 
 =Gesture
@@ -119,8 +123,8 @@ B: Yeah I'm expecting one more person to join us on this call. They said "yes" o
 
 A: Okay well, let's just wait a while, I'm sure they're not far away...
 
-*[B: Make small talk]->Smalltalk
-*[B: Make big talk]->Bigtalk
++[B: Make small talk]->Smalltalk
++[B: Make big talk]->Bigtalk
 
 #------END OF PART 1------------
 
@@ -133,17 +137,17 @@ B: And talk in a casual fashion, like people normally do.
 
 *B: I've been loving your work lately
     ~ agenda = "how much I admire you"
-    A: {...{responseset}? ->Expand.B | ...{responseset}. ->Expand.B | ...{responseset}! ->Expand.A | ...{responseset},  {responseset}, {responseset}!!! ->Expand.A}
+    ->Expand.B
 *B: I've been working on a new project recently
     ~ agenda = "a cool project"
-    A: {...{responseset}? ->Expand.B | ...{responseset}. ->Expand.B | ...{responseset}! ->Expand.A | ...{responseset},  {responseset}, {responseset}!!! ->Expand.A}
+    ->Expand.B
 *B:  We've sure been having some weather
     ~ agenda = "the current weather"
-    A: {...{responseset}? ->Expand.B | ...{responseset}. ->Expand.B | ...{responseset}! ->Expand.A | ...{responseset},  {responseset}, {responseset}!!! ->Expand.A}
-*B: [Talk about some random frivolous thing]
-	~ agenda = "{~ the kind of music that our parents enjoy listening to | the football | dogs | gardening | staycationing | home renovation | craft beer | cryptocurrency | coffee | organic produce}"
+    {~ ->Expand.B | ->Expand.A}
++[B: Talk about some random frivolous thing]
+	~ agenda = "{~the kind of music that our parents enjoy listening to|the football|dogs|gardening|staycationing|home renovation|craft beer|cryptocurrency|coffee|organic produce}"
 	B: Hey so, {what do you think about...|I've been thinking about|have we ever talked about|have you seen any good takes on|this weekend I had a remarkable experience with} um... {agenda}
-    A: {...{responseset}? ->Expand.B | ...{responseset}. ->Expand.B | ...{responseset}! ->Expand.A | ...{responseset},  {responseset}, {responseset}!!! ->Expand.A}
+    ->Expand.A
 
 
 
@@ -157,11 +161,11 @@ A: {~I have so much to say on this | I could definitely share some thoughts abou
 
 A: {~Let me just search my brain... | It's right on the tip of my tongue... | How shall I put this... | Just to give one example... | I would love to hear your thoughts too, but for me...}
 
-*A: {Expand > 4} [Suggest giving up on the meeting] ->Ending.Giveup
++{Expand > 4} [A: Suggest giving up on the meeting] ->Ending.Giveup
 +[A: Describe {agenda} in 10 words or less] ->tenwordchallenge.A
 +[A: Talk at length about {agenda}] ->showerchallenge.A
 +[A: Change the topic to some other random frivolous thing]
-	~ agenda = "{~ the kind of music that our parents enjoy listening to | the football | dogs | gardening | staycationing | home renovation | craft beer | cryptocurrency | coffee | organic produce}"
+	~ agenda = "{~the kind of music that our parents enjoy listening to|the football|dogs|gardening|staycationing|home renovation|craft beer|cryptocurrency|coffee|organic produce}"
 	A: Actually, {what do you think about...|I've been thinking about|have we ever talked about|have you seen any good takes on|this weekend I had a remarkable experience with} um... {agenda}
 	->Expand.B
 
@@ -174,17 +178,17 @@ B: {~I have so much to say on this | I could definitely share some thoughts abou
 
 B: {~Let me just search my brain... | It's right on the tip of my tongue... | How shall I put this... | Just to give one example... | I would love to hear your thoughts too, but for me...}
 
-*B: {Expand > 4} [Pretend to have technical issues so that this situation will end] ->Ending.Static
+*{Expand > 4} [B: Pretend to have technical issues so that this situation will end] ->Ending.Static
 +[B: Describe {agenda} in 10 words or less] ->tenwordchallenge.B
 +[B: Talk at length about {agenda}] ->showerchallenge.B
 +[B: Change the topic to some other random frivolous thing]
-	~ agenda = "{~ the kind of music that our parents enjoy listening to | the football | dogs | gardening | staycationing | home renovation | craft beer | cryptocurrency | coffee | organic produce}"
+	~ agenda = "{~the kind of music that our parents enjoy listening to|the football|dogs|gardening|staycationing|home renovation|craft beer|cryptocurrency|coffee|organic produce}"
 	B: Now that I think of it, {what do you think about...|I've been thinking about|have we ever talked about|have you seen any good takes on|this weekend I had a remarkable experience with} um... {agenda}
 	->Expand.A
 
 ===tenwordchallenge
 =A
-A: @Write a description of "{agenda}" in the comments, using ten words or less
+A: @Write a description of "{agenda}" in the chat, using ten words or less
 
 A: Okay um, let's see... Let me try to put it succinctly...
 
@@ -196,7 +200,7 @@ A: It's so difficult to put it into words, but also I feel like one could write 
 
 A: I have so many thoughts about it, but if I had to say just one thing, then it would be...
 
-A: /Perform an audience response from the comments. Choose quickly!
+A: /Perform an audience response from the chat. Choose quickly!
 
 +B: ...{responseset}?
 ->Expand.A
@@ -208,7 +212,7 @@ A: /Perform an audience response from the comments. Choose quickly!
 ->Expand.B
 
 =B
-B: @Write a description of "{agenda}" in the comments, using ten words or less
+B: @Write a description of "{agenda}" in the chat, using ten words or less
 
 B: Okay um, let's see... Let me try to put it succinctly...
 
@@ -220,7 +224,7 @@ B: It's so difficult to put it into words, but also I feel like one could write 
 
 B: I have so many thoughts about it, but if I had to say just one thing, then it would be...
 
-B: /Perform an audience response from the comments. Choose quickly!
+B: /Perform an audience response from the chat. Choose quickly!
 
 {agenda == "how much I admire you":
 
@@ -244,7 +248,7 @@ B: /Perform an audience response from the comments. Choose quickly!
 
 ===showerchallenge
 =A
-A: @Write every thought you have about "{agenda}" in the comments
+A: @Write every thought you have about "{agenda}" in the chat
 
 A: Well, to give you my brutally honest opinion
 
@@ -252,7 +256,7 @@ A: Completely unfiltered, you understand
 
 A: I really think ...
 
-A: /Perform every audience response from the comments, in order, as an unfiltered stream of consciousness.
+A: /Perform every audience response from the chat, in order, as an unfiltered stream of consciousness.
 
 +B: ...{responseset}?
 ->Expand.A
@@ -264,7 +268,7 @@ A: /Perform every audience response from the comments, in order, as an unfiltere
 ->Expand.B
 
 =B
-B: @Write every thought you have about "{agenda}" in the comments
+B: @Write every thought you have about "{agenda}" in the chat
 
 B: Well, to give you my brutally honest opinion
 
@@ -272,7 +276,7 @@ B: Completely unfiltered, you understand
 
 B: I really think ...
 
-B: /Perform every audience response from the comments, in order, as an unfiltered stream of consciousness.
+B: /Perform every audience response from the chat, in order, as an unfiltered stream of consciousness.
 
 +A: ...{responseset}?
 ->Expand.B
@@ -284,7 +288,7 @@ B: /Perform every audience response from the comments, in order, as an unfiltere
 ->Expand.A
 
 ===adjectivechallenge
-B: @Write some very fancy-sounding adjectives in the comments
+B: @Write some very fancy-sounding adjectives in the chat
 
 B: I don't want to sound pretentious
 
@@ -292,7 +296,7 @@ B: But if I had to describe it, I'd have to say
 
 B: For want of a better word, it's...
 
-B: /Choose three adjectives from the comments that will make you sound very impressive
+B: /Choose three adjectives from the chat that will make you sound very impressive
 
 A: Well thanks, that's very kind of you to say.
 + [A: Say something politely self-effacing]
@@ -338,11 +342,11 @@ A: I really feel like this is something much bigger than most people realise.
 A: So, {how have you been?|how's it going?|what have you been up to?|what's it been like where you are?}
 
 
-*[B: Share some feelings]
++[B: Share some feelings]
 ->emotions
-*[B: Share some insightful analysis]
++[B: Share some insightful analysis]
 ->intellectualism
-*[B: Share some creative musings]
++[B: Share some creative musings]
 ->surrealism
 
 ===emotions
@@ -378,12 +382,14 @@ B: I guess I've been feeling kind of... um...
 *B: angry at the world
 ~ agenda = "anger at the world"
 ->emotionchallenge
-*B: numb
++B: numb
 ~ agenda = "numbness"
 ->emotionchallenge
 
 =emotionchallenge
 ~ tagset = "{~you know what I mean?|sorry was that a bit of an overshare?|and I just don't know what to do about all of this.|and I don't see how it's going to get better.|and I know this is temporary, but that's where I'm at right now.}"
+
+B: @Write every thought you have about {agenda} in the chat
 
 A: Oh, I'm sorry to hear that.
 
@@ -391,8 +397,7 @@ A: Do you want to talk about it?
 
 B: Yeah I guess, um, it's just that...
 
-B: @Write every thought you have about {agenda} in the comments
-B: /Perform every audience response from the comments, in order, as an unfiltered stream of consciousness.
+B: /Perform every audience response from the chat, in order, as an unfiltered stream of consciousness.
 
 B: ... {tagset}
 
@@ -450,13 +455,13 @@ A: I'm so sorry that you're going through that.
 
 A: Is there anything I can do to help?
 
-*B: Sorry for going on and on like that[.], I just feel so trapped right now, stuck with this {agenda}.
++B: Sorry for going on and on like that[.], I just feel so trapped right now, stuck with this {agenda}.
 ->Ending.Thirdperson
 
-*B: Thank you for listening, I really feel heard.
++B: Thank you for listening, I really feel heard.
 ->heardresponse
 
-*B: {Ending.Honesty>0} Are you just saying that because you learned somewhere that it was the right thing to say when someone is sad?
++{Ending.Honesty>0}B: Are you just saying that because you learned somewhere that it was the right thing to say when someone is sad?
 B: Yeah, okay. You're right.
 ->Ending.Honesty
 
@@ -486,13 +491,13 @@ A: {responseset}?
 
 B: Yeah there's this bit where they say...
 
-*B: "There's a saying that anything that could be destroyed by the truth should be destroyed.
++B: "There's a saying that anything that could be destroyed by the truth should be destroyed.
 ~ agenda = "refusal"
 ->Autostraddle
-*B: When we use an internet platform like this, we're contributing to actually building the thing
++B: When we use an internet platform like this, we're contributing to actually building the thing
 ~ agenda = "imagining a different kind of society"
 ->Pipkin
-*B: ... Actually, would you happen to have a rock or a stone to hand?
++B: ... Actually, would you happen to have a rock or a stone to hand?
 ~ agenda = "materiality"
 ->Ingold
 
@@ -503,8 +508,10 @@ B: There is so much held together at the seams only by the worst kind of work...
 
 B: It's called "Toward an Applicable Theory of Just Not"
 
-+A: Like Bullshit Jobs?->returndialogue
-+A: Like marriage? ->inappropriate
++A: Like Bullshit Jobs?
+    ->returndialogue
++A: Like marriage?
+    ->inappropriate
 +A: Like this conversation?
 B: Um, okay.
 B: I'm sorry... I don't really know what I did wrong there?
@@ -521,7 +528,8 @@ B: So now everything touches everything else, and we are both the producer and t
 B: Inextricably linked to each other.
 B: It's called "The slime mold is as good an economic model as any"
 
-+A: So it's like an anarchist utopia?->returndialogue
++A: So it's like an anarchist utopia?
+    ->returndialogue
 +A: Wait, slime mold?
 B: Yeah like, instead of bosses, we could have more self-organising kinds of structures.
 ->Ending.Thirdperson
@@ -536,7 +544,8 @@ B: It's by this guy Tim Ingold. I don't know if I really understand it properly 
 B: But I think about it a lot when it comes to the internet. Like, what makes a digital thing feel more or less digital or computery?
 B: At one point he says, "The surface of materiality, in short, is an illusion. We cannot touch it because it is not there."
 
-+A: So it's like the matrix? Nothing is real? ->returndialogue
++A: So it's like the matrix? Nothing is real?
+    ->returndialogue
 +A: You know what else is not there? My interest in this conversation.
 B: Um, okay.
 B: I'm sorry... I don't really know what I did wrong there?
@@ -553,7 +562,7 @@ A: {responseset}...
 +A: Can we talk about something a bit less {~heady|intense|confusing|difficult|intellectual|pretentious}?
 B: Oh, sure...
 ->Smalltalk
-+A: [Expound on {agenda}]
++[A: Expound on {agenda}]
 ->pretentiousshower
 +A: Are you okay right now? What's this all really about? ->emotions
 
@@ -571,7 +580,7 @@ A: Why not just feel into the flow of life, be more intuitive?
 ->Ending.Honesty
 
 =pretentiousshower
-A: @Write about "{agenda}" in the comments
+A: @Write about "{agenda}" in the chat
 
 A: Ah yes, I see what you mean
 
@@ -579,9 +588,9 @@ A: I've been thinking a great deal about {agenda} lately.
 
 A: So much ink has been spilled on this topic of course. I could talk about it ad infinitum! Or ad nauseum you could say.
 
-A: Wasn't it {~Aristotle|Plato|Foucault|Judith Butler|the Marquis de Sade|Thomas Aquinas|Lord Byron|Sara Ahmed|Karen Barad|Simone Weil|Emily Dickinson}
+A: Wasn't it {~Aristotle|Plato|Foucault|Judith Butler|the Marquis de Sade|Thomas Aquinas|Lord Byron|Sara Ahmed|Karen Barad|Simone Weil|Emily Dickinson}?
 
-A: /Perform every audience response from the comments, in order, as an unfiltered stream of consciousness.
+A: /Perform every audience response from the chat, in order, as an unfiltered stream of consciousness.
 
 ->Ending.Thirdperson
 
@@ -596,9 +605,9 @@ B: Which means that it is something that we make the way it is by all deciding t
 
 B: Like, we could in theory all decide tomorrow to role-play a completely different society, and it would basically be the same as going to a parallel universe where completely different things are true.
 
-+A: [Why did we have to end up in the one with jobs?] ->jobs
-+A: [Why did we have to end up in the one with gender]? ->gender
-+A: [Could we enact an octopus supremacy instead?] ->octopus
++[A: Why did we have to end up in the one with jobs?] ->jobs
++[A: Why did we have to end up in the one with gender?] ->gender
++[A: Could we enact an octopus supremacy instead?] ->octopus
 
 =jobs
 A: Yeah like, of all the societies for us to collectively construct together, why did we have to end up in the one with jobs?
@@ -660,7 +669,7 @@ B: Maybe we could start redesigning our society around what we think the octopus
 B: We could even develop ways of practising co-design with the octopus, gradually giving them more power in our own society.
 ->strange
 
-+B: [I think the cuttlefish might have something to say about all this.]
++[B: I think the cuttlefish might have something to say about all this.]
 B: Yeah I'm also a bit worried about what impact we would have by just choosing octopus as the species that gets to carry the torch of species dominance.
 B: Why do we get to decide? Just because we like these particular tentacle boys.
 B: I imagine if the cuttlefish were made aware of this they might be like, "hang on, why them and not us?"
@@ -736,15 +745,10 @@ B: It was lovely talking to you, let's do this again some time.
 =Honesty
 B: The truth is, I feel awkward all of the time.
 
-B: I guess a lot of people can just be themselves and go with the flow[...], but I've never done that. I'm constantly monitoring myself, and imagining how I could have done things differently...
+B: I guess a lot of people can just be themselves and go with the flow, but I've never done that. I'm constantly monitoring myself, and imagining how I could have done things differently...
 
-B: I manage all my social interactions by just following scripts and procedures[...] that I think represent the "right thing to do" - the thing that will stop me from messing everything up. I constantly ruminate on situations like this, because part of me thinks eventually I'll discipline myself into writing the perfect script. If I just go over it one more time, maybe I'll know what I should have done right...
+B: I manage all my social interactions by just following scripts and procedures that I think represent the "right thing to do" - the thing that will stop me from messing everything up. I constantly ruminate on situations like this, because part of me thinks eventually I'll discipline myself into writing the perfect script. If I just go over it one more time, maybe I'll know what I should have done right...
 
-{Honesty <1}->Start
-{Honesty>1} B: If I don't do this...
+{Honesty>1: B: If I don't do this... if I let go, and just say the first thing that comes to mind, I end up sounding strange, or going on and on for ages as I just empty out every thought in my head. I can say the thing that I know you're supposed to say, and risk seeming insincere, or I can say the thing that comes to mind for me, and risk seeming arrogant or just not being understood.}
 
-B: If I let go, and just say the first thing that comes to mind, I end up sounding strange, or going on and on for ages as I just empty out every thought in my head.
-
-B: I can say the thing that I know you're supposed to say, and risk seeming insincere, or I can say the thing that comes to mind for me, and risk seeming arrogant or just not being understood.
-
-->END
+->Thirdperson
